@@ -17,6 +17,7 @@ enum user_keycodes {
     NEXT_TAB,
     PREVIOUS_APPLICATION,
     TMUX_CLOSE_PANE,
+    VIM_CLIPBOARD_REGISTER,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -106,18 +107,21 @@ enum combos {
     NEXT_TAB_COMBO,
     PREVIOUS_APPLICATION_COMBO,
     JK_ENTER_COMBO,
+    VIM_CLIPBOARD_REGISTER_COMBO,
 };
 
 const uint16_t PROGMEM previous_tab_combo[] = {LCTL_T(KC_S), LOPT_T(KC_D), COMBO_END};
 const uint16_t PROGMEM next_tab_combo[] = {LOPT_T(KC_D), LSFT_T(KC_F), COMBO_END};
 const uint16_t PROGMEM previous_application_combo[] = {LCTL_T(KC_S), LOPT_T(KC_D), LSFT_T(KC_F), COMBO_END};
 const uint16_t PROGMEM jk_enter_combo[] = {LSFT_T(KC_J), LOPT_T(KC_K), COMBO_END};
+const uint16_t PROGMEM vim_clipboard_register_combo[] = {KC_U, KC_I, COMBO_END};
 
 combo_t key_combos[] = {
     [PREVIOUS_TAB_COMBO] = COMBO(previous_tab_combo, PREVIOUS_TAB),
     [NEXT_TAB_COMBO] = COMBO(next_tab_combo, NEXT_TAB),
     [PREVIOUS_APPLICATION_COMBO] = COMBO(previous_application_combo, PREVIOUS_APPLICATION),
     [JK_ENTER_COMBO] = COMBO(jk_enter_combo, KC_ENT),
+    [VIM_CLIPBOARD_REGISTER_COMBO] = COMBO(vim_clipboard_register_combo, VIM_CLIPBOARD_REGISTER),
 };
 
 bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
@@ -179,6 +183,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             case TMUX_CLOSE_PANE:
                 SEND_STRING(SS_LCTL("s") "x");
+                return false;
+            case VIM_CLIPBOARD_REGISTER:
+                SEND_STRING("\"*");
                 return false;
         }
     }

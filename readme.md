@@ -33,4 +33,13 @@ keyboards/nuphy/halo65_v2/ansi/keymaps/default/keymap.c
 - N/M hold activates numbers + tmux/vim layer
 - Space hold activates navigation layer
 - J+K combo sends Enter
+- U+I combo sends `"*` (Vim system clipboard register)
 - S+D combo sends previous tab, D+F combo sends next tab, S+D+F combo sends previous application
+
+## Reference
+
+The Mode M256WH keyboard keymap is the primary reference for this keymap:
+
+```
+~/qmk_firmware/keyboards/mode/m256wh/keymaps/giovannibenussi/keymap.c
+```
